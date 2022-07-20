@@ -1,7 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
 const Signup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { user, signUp } = UserAuth();
+  const navigate = useNavigate();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await signUp(email, password);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="w-full h-screen">
@@ -15,13 +31,22 @@ const Signup = () => {
           <div className="max-w-[450px] h-[510px] bg-black/75 text-white mx-auto">
             <div className="max-w-[320px] mx-auto py-16">
               <h1 className="text-3xl font-bold">Sign Up</h1>
-              <form className="flex flex-col py-4 w-full">
+              <form
+                onSubmit={submitHandler}
+                className="flex flex-col py-4 w-full"
+              >
                 <input
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                   className="p-3 my-3 rounded bg-gray-600"
                   type="email"
                   placeholder="Email"
                 />
                 <input
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                   className="p-3 my-3 rounded bg-gray-600"
                   type="password"
                   placeholder="Password"
