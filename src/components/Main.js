@@ -29,7 +29,7 @@ const Main = () => {
         <img
           className="w-full h-full object-cover"
           src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}
-          alt={movie?.title}
+          alt={movie?.title}                      //Optional chaining (?.) 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining'
         />
         <div className="absolute w-full top-[20%] p-4 md:p-8">
             <h1 className="text-3xl md:text-5xl font-bold">{movie?.title}</h1>
